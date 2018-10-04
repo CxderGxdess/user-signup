@@ -27,6 +27,12 @@ def at_symbol(x):
     else:
         return False
 
+def email_period(x):
+    if x.count(".") == 1:
+        return True
+    else:
+        return False        
+
 
 
 @app.route("/", methods=["POST"])
@@ -69,21 +75,26 @@ def signup():
 
         elif not at_symbol(email):
             email_error="Must contain one @ symbol."
+        
+        elif not email_period(email):
+            email_error="Must contain one dot(.)"    
 
         else:
             if " " in email:
                 email_error="No spaces allowed!"
+    
+               
 
     if not username_error and not password_error and not verify_error and not email_error:
         username=username
-        return redirect('/welcome?username={0}'.format(username))
+        return redirect('/Welcome?username={0}'.format(username))
 
     else:
         return render_template("hello_form.html", username_error=username_error, username=username, password_error=password_error, password=password, verify=verify, verify_error=verify_error, email_error=email_error, email=email)
 
 
-@app.route("/welcome")
-def good_signup():
+@app.route("/Welcome", methods = ['GET'])
+def valid_signup():
     username=request.args.get('username')
     return render_template("Welcome.html", username=username)
 
