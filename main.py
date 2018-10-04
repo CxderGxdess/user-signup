@@ -27,11 +27,7 @@ def at_symbol(x):
     else:
         return False
 
-def email_period(x):
-    if x.count(".") == 1:
-        return True
-    else:
-        return False
+
 
 @app.route("/", methods=["POST"])
 def signup():
@@ -73,9 +69,6 @@ def signup():
 
         elif not at_symbol(email):
             email_error="Must contain one @ symbol."
-
-        elif not email_period(email):
-            email_error="Must contain one dot(.)"
 
         else:
             if " " in email:
