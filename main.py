@@ -1,12 +1,13 @@
 from flask import Flask, request, redirect, render_template
+import cgi
 import os
 
 app=Flask(__name__)
 app.config['DEBUG'] = True
 
-@app.route("/hello_form")
+@app.route("/")
 def index():
-    return render_template("hello_form.html")
+    return render_template('hello_form.html')
 
 def empty_field(x):
     if x:
@@ -32,7 +33,7 @@ def email_period(x):
     else:
         return False
 
-@app.route("/hello_form", methods=["POST"])
+@app.route("/", methods=["POST"])
 def signup():
     username = request.form["username"]
     password = request.form["password"]
@@ -91,7 +92,7 @@ def signup():
 @app.route("/welcome")
 def good_signup():
     username=request.args.get('username')
-    return render_template("welcome.html", username=username)
+    return render_template("Welcome.html", username=username)
 
 
 app.run()
